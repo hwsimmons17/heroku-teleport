@@ -1,8 +1,3 @@
-[production]
+[default]
 address = "0.0.0.0"
-port = 8000
-
-
-[development]
-address = "localhost"
-port = 8000
+port = 2345
