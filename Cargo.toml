@@ -1,0 +1,12 @@
+[package]
+name = "teleport-server-rust"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = {version="0.5.0-rc.1",features = ["json"]}
+mongodb = {version="2.0.2", features=["async-std-runtime"], default-features=false}
+serde = { version = "1", features = ["derive"] }
+dotenv = "0.15.0"
