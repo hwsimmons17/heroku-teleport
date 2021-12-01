@@ -1,10 +1,12 @@
 #[macro_use]
 extern crate rocket;
 
-pub mod mongo;
+use rocket_sync_db_pools::{database, diesel};
+
 pub mod routes;
 
-// struct LogsDbConn(diesel::SqliteConnection);
+#[database("postgres_logs")]
+pub struct PgDB(diesel::PgConnection);
 
 #[launch]
 async fn rocket() -> _ {
@@ -26,4 +28,5 @@ async fn rocket() -> _ {
                 routes::rider::bump
             ],
         )
+        .attach(PgDB::fairing())
 }
