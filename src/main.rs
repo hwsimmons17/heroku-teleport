@@ -5,8 +5,8 @@ use rocket_sync_db_pools::{database, diesel};
 
 pub mod routes;
 
-#[database("postgres_logs")]
-pub struct PgDB(diesel::PgConnection);
+// #[database("postgres_logs")]
+// pub struct PgDB(diesel::PgConnection);
 
 #[launch]
 async fn rocket() -> _ {
@@ -28,5 +28,5 @@ async fn rocket() -> _ {
                 routes::rider::bump
             ],
         )
-        .attach(PgDB::fairing())
+    // .attach(PgDB::fairing())
 }

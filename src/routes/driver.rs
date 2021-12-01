@@ -1,6 +1,6 @@
 use rocket::serde::{json::Json, Deserialize, Serialize};
 
-use crate::PgDB;
+// use crate::PgDB;
 
 #[derive(Serialize)]
 pub struct StandardOutput<'r> {
@@ -31,7 +31,7 @@ pub struct StopDrivingInput<'r> {
 //this fails if pubkey is already in database
 #[post("/registration-submission", data = "<req>")]
 pub async fn registration_submission(
-    conn: PgDB,
+    // conn: PgDB,
     req: Json<CreateDriverInput<'_>>,
 ) -> Json<StandardOutput<'_>> {
     if req.password != "password" {
