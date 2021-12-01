@@ -3,6 +3,7 @@ extern crate rocket;
 
 use rocket_sync_db_pools::{database, diesel};
 
+pub mod helpers;
 pub mod routes;
 
 // #[database("postgres_logs")]

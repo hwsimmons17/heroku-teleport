@@ -1,4 +1,7 @@
+use anchor_lang::prelude::*;
 use rocket::serde::{json::Json, Deserialize, Serialize};
+
+use crate::helpers::verify::verify;
 
 #[derive(Deserialize)]
 pub struct req<'r> {
@@ -23,14 +26,18 @@ pub struct GetCostOutput<'r> {
 }
 
 #[derive(Deserialize)]
-pub struct GetCostInput<'r> {
-    pubkey: &'r str,
+pub struct GetCost {
+    pubkey: Pubkey,
     current_lat: i64,
     current_long: i64,
     destination_lat: i64,
     destination_long: i64,
     time: i64,
-    signed_message: &'r str,
+}
+#[derive(Deserialize)]
+pub struct GetCostInput<'r> {
+    message: &'r str,
+    signature: &'r str,
 }
 #[derive(Deserialize)]
 pub struct PaidInput<'r> {
@@ -42,9 +49,19 @@ pub struct PaidInput<'r> {
 
 #[post("/get-cost", data = "<req>")]
 pub fn get_cost(req: Json<GetCostInput<'_>>) -> Json<GetCostOutput> {
+    let verified = verify(req.message, req.signature);
+
+    if !verified.success {
+        return Json(GetCostOutput {
+            success: false,
+            message: "verification failed",
+            cost: 0,
+        });
+    }
+
     Json(GetCostOutput {
         success: true,
-        message: "nothing happened, this is cost in lamports",
+        message: "you are verified",
         cost: 100000000,
     })
 }

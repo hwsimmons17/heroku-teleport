@@ -30,10 +30,7 @@ pub struct StopDrivingInput<'r> {
 
 //this fails if pubkey is already in database
 #[post("/registration-submission", data = "<req>")]
-pub async fn registration_submission(
-    // conn: PgDB,
-    req: Json<CreateDriverInput<'_>>,
-) -> Json<StandardOutput<'_>> {
+pub async fn registration_submission(req: Json<CreateDriverInput<'_>>) -> Json<StandardOutput<'_>> {
     if req.password != "password" {
         return Json(StandardOutput {
             success: false,
